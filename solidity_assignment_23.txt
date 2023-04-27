@@ -1,0 +1,115 @@
+Solidity Assignment: 23
+Gas Cost Report
+
+Solidity Code:
+//SPDX-License-Identifier:MIT
+pragma solidity 0.8.7;
+contract structure{
+	struct Book{
+	string title;
+	string author;
+	uint256 bookID;
+	uint256 price;
+	}
+// define a struct- name of the struct variable to represent the struct
+Book book;
+function setBook() public {
+book= Book("Blockchain for beginners","Ineuron",4,1000);
+}
+function getBookId() public view returns(uint) {
+return book.bookID;
+}
+function getPrice() public view returns(uint){
+return book.price;
+}
+function getTitle() public view returns(string memory){
+return book.title;
+}
+function getAuthor() public view returns(string memory){
+return book.author;
+}
+}
+
+
+Non-Optimize Gas Report
+
+1. Contact Deployment Gas 388579 Gas
+
+2. Function call Gas
+
+function setBook() public {
+book= Book("Blockchain for beginners","Ineuron",4,1000);
+}
+
+Function call: 127417 gas
+
+function getBookId() public view returns(uint) {
+return book.bookID;
+}
+
+Function call: 23485 gas
+
+function getPrice() public view returns(uint){
+return book.price;
+}
+
+Function call: 23507gas
+
+function getTitle() public view returns(string memory){
+return book.title;
+}
+Function call: 24599 gas
+function getAuthor() public view returns(string memory){
+return book.author;
+}
+
+Function call: 24555 gas
+
+
+Optimization Steps which  used:
+
+1. Enabled optimizer: 200
+
+2. Optimizing the setBook() function by making a temporary struct in
+memory.
+
+3. Making all public functions into an external function call
+
+
+
+
+Optimize Gas Report
+
+Deployment Gas: 276948
+
+function setBook() external {
+Book memory addBook= Book("Blokchain for
+beginners","Ineuron",4,1000);
+book = addBook;
+}
+
+Function call: 127395
+
+function getBookId() external view returns(uint) {
+return book.bookID;
+}
+
+Function call: 23345
+
+function getPrice() external view returns(uint){
+return book.price;
+}
+
+Function call: 23312
+
+function getTitle() external view returns(string memory){
+return book.title;
+}
+
+Function call: 24341
+
+function getAuthor() external view returns(string memory){
+return book.author;
+}
+
+Function call: 24297
